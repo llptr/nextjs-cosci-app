@@ -9,11 +9,11 @@ display: 'swap',
 });
 
 export const metadata: Metadata = {
-title: "Log in",
+title: "Dashboard",
 description: "for 2568 student",
 };
 
-export default function AuthLayout({
+export default function DashboradLayout({
 children,
 }: Readonly<{
 children: React.ReactNode;
