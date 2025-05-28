@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Content } from "next/font/google";
+import Image from "next/image";
 
 type Features05PageProps = {
   courses: any[]
@@ -28,8 +28,16 @@ const Features05Page = ({courses} : Features05PageProps) => {
                 </p>
               </CardHeader>
               <CardContent className="mt-auto px-0 pb-0">
-                <div className="bg-muted h-40 ml-6 rounded-tl-xl" />
-                {Content.picture}
+                <Image 
+                src = {course.picture} 
+                alt = {course.detail} 
+                width = {0}
+                height = {0}
+                sizes = "100vw"
+                style={{ width: '100%', height: 150 }}
+                priority
+                />
+                {course.picture}
               </CardContent>
             </Card>
           ))}
