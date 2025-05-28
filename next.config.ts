@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
-
+//allow domain for show pic
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns:[
+      {protocol:"http", hostname: "api.codingthailand.com"},
+    ]
+  }
 };
 
 export default nextConfig;
