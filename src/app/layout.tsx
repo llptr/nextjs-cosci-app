@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { K2D } from "next/font/google";
 import "./globals.css";
+//import AppNavbar from "./components/AppNavbar";
+import Navbar01Page from "@/components/navbar-01/navbar-01"; 
 
 const k2D = K2D({
   subsets: ["thai"],
@@ -23,6 +25,7 @@ export default function RootLayout({
       <body
         className={`${k2D.className}`}
       >
+        <Navbar01Page/>
         {children}
       </body>
     </html>

@@ -1,12 +1,9 @@
-import AppWelcome from "./components/AppWelcome";
-
+import Hero02 from "@/components/hero-02/hero-02";
 //<div></div> or <> </> it's was the same
 export default function Home() {
   return (
     <> 
-      <h1>Home page</h1>
-      <hr />
-      <AppWelcome headTilte="SWU" isShow={true}/>
+      <Hero02/>
     </>
   );
 }
