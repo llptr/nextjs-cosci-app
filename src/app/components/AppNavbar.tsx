@@ -6,6 +6,7 @@ export default function AppNavbar() {
     </>
     );
 }
+/*
 <nav className="bg-white dark:bg-gray-800 antialiased">
     <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0 py-4">
     <div className="flex items-center justify-between">
@@ -211,3 +212,4 @@ export default function AppNavbar() {
     </div>
     </div>
 </nav>
+*/
