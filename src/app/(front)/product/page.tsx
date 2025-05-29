@@ -55,7 +55,7 @@ const Product = async () => {
               </p>
 
               <Button className="mt-6 shadow-none">
-                Basket <ChevronRight />
+                Add to Basket <ChevronRight />
               </Button>
             </CardContent>
           </Card>
