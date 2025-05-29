@@ -18,7 +18,7 @@ export default function CartButton({product}: any) {
 return (
     <main>
     <Button className="mt-6 shadow-none" onClick={handleAddItem}>
-        หยิบใส่ตะกร้า <ChevronRight/>
+        Add to cart <ChevronRight/>
     </Button>
     </main>
     );
