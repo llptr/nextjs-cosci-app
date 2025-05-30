@@ -83,7 +83,7 @@ const Login01Page = () => {
               )}
             />
             <Button type="submit" className="mt-4 w-full">
-              Log In
+              Sign up
             </Button>
           </form>
         </Form>
