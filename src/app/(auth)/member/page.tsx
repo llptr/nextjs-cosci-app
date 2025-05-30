@@ -14,23 +14,47 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { authClient } from "@/lib/auth-client"; //import the auth client
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
+  name: z.string().min(1, "Name"),
   email: z.string().email("Your mail was worng"),
   password: z.string().min(6, "Your password will be more than 6"),
 });
 
-const Login01Page = () => {
+const Signup01Page = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+  const onSubmit = async (form: z.infer<typeof formSchema>) => {
+    
+    await authClient.signUp.email({
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      }, {
+        onRequest: (ctx) => {
+          //show loading
+          console.log(ctx.body);
+        },
+        onSuccess: (ctx) => {
+          //redirect to the dashboard or sign in page
+          console.log(ctx.data);
+          router.replace('/');
+        },
+        onError: (ctx) => {
+          // display the error message
+          alert(ctx.error.message);
+        },
+    }); 
   };
 
   return (
@@ -38,7 +62,7 @@ const Login01Page = () => {
       <div className="max-w-xs w-full flex flex-col items-center">
         
         <p className="mt-4 mb-4 text-xl font-bold tracking-tight">
-        Welcome to Cosci shop  
+          Membership
         </p>
 
         <Form {...form}>
@@ -46,6 +70,24 @@ const Login01Page = () => {
             className="w-full space-y-4"
             onSubmit={form.handleSubmit(onSubmit)}
           >
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>FullName</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="Your Name"
+                      className="w-full"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="email"
@@ -90,9 +132,9 @@ const Login01Page = () => {
 
         <div className="mt-5 space-y-5">
           <p className="text-sm text-center">
-            Do not have an account?
-            <Link href="/signup" className="ml-1 underline text-muted-foreground">
-              Create account
+            Already have accout?
+            <Link href="/login" className="ml-1 underline text-muted-foreground">
+              เข้าสู่ระบบ
             </Link>
           </p>
         </div>
@@ -101,4 +143,4 @@ const Login01Page = () => {
   );
 };
 
-export default Login01Page;
+export default Signup01Page;

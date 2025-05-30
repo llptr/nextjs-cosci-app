@@ -10,8 +10,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -21,6 +23,7 @@ const formSchema = z.object({
 });
 
 const Login01Page = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: "",
@@ -29,10 +32,27 @@ const Login01Page = () => {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
-  };
+  const onSubmit = async (form: z.infer<typeof formSchema>) => {
 
+    await authClient.signIn.email({
+            email: form.email,
+            password: form.password,
+          }, {
+            onRequest: (ctx) => {
+              //show loading
+              console.log(ctx.body);
+            },
+            onSuccess: (ctx) => {
+              //redirect to the dashboard or sign in page
+              console.log(ctx.data);
+              router.replace('/dashboard');
+            },
+            onError: (ctx) => {
+              // display the error message
+              alert(ctx.error.message);
+            },
+        }); 
+  };
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-xs w-full flex flex-col items-center">
