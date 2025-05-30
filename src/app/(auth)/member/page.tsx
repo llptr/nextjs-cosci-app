@@ -52,6 +52,7 @@ const Signup01Page = () => {
         },
         onError: (ctx) => {
           // display the error message
+          console.log(ctx.error);
           alert(ctx.error.message);
         },
     }); 
