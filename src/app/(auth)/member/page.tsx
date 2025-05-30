@@ -35,7 +35,7 @@ const Signup01Page = () => {
   });
 
   const onSubmit = async (form: z.infer<typeof formSchema>) => {
-    
+
     await authClient.signUp.email({
         name: form.name,
         email: form.email,
@@ -134,7 +134,7 @@ const Signup01Page = () => {
           <p className="text-sm text-center">
             Already have accout?
             <Link href="/login" className="ml-1 underline text-muted-foreground">
-              เข้าสู่ระบบ
+              Succeed
             </Link>
           </p>
         </div>

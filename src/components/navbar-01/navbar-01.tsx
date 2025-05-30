@@ -6,8 +6,13 @@ import Link from "next/link";
 import { ShoppingBasketIcon } from "lucide-react";
 import { Badge } from "../ui/badge";
 import CountCartItem from "@/app/(front)/components/CountCartItem";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-const Navbar01Page = () => {
+const Navbar01Page = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
   return (
     <div className="bg-muted">
       <nav className="h-16 bg-background border-b">
@@ -21,12 +26,32 @@ const Navbar01Page = () => {
             <Link href="/cart"> 
             <Badge className="p-2 text-sm"><ShoppingBasketIcon/> <CountCartItem/> items (s) </Badge>
             </Link>
-            <Button asChild variant="outline" className="hidden sm:inline-flex">
-            <Link href="/login">Log In</Link>
-            </Button>
-            <Button asChild>
-            <Link href="/member">Member</Link>
-            </Button>
+            
+            {
+              !session && (
+                <>
+                  <Button asChild variant="outline" className="hidden sm:inline-flex">
+                  <Link href="/login">Log In</Link>
+                  </Button>
+                  <Button asChild>
+                  <Link href="/member">Member</Link>
+                  </Button>
+                </>
+              )
+            }
+
+            {
+              session &&(
+                <>
+                <div className="flex items-center">
+                  Hello, {session.user.name}
+                </div>
+                <Button variant="destructive" asChild>
+                <Link href="/dashboard">Dashboard</Link>
+                </Button>
+                </>
+              )
+            }
 
             {/* Mobile Menu */}
             <div className="md:hidden">
